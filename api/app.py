@@ -1,16 +1,12 @@
 #!/usr/bin/python3
 from flask import Flask
 from flask_cors import CORS
-#from models.base_model import BaseModel
-#from models.postulante import Postulante
 
 
 app = Flask(__name__)
 CORS(app)
 @app.route("/")
 def home():
-    #test = Postulante("Zoltan")
-    #print(test)
     return {"estado": "OK"}
 
 
