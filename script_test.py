@@ -2,11 +2,12 @@
 #from models.base_model import BaseModel
 from models.postulante import Postulante
 
-name = "zoltan"
-email = "zmoragarcia@gmail.com"
-test = Postulante(name=name, email=email)
-data_pregunta_1 = {"num_question": 3, "etapa": "1", "puntaje": "4"}
+name = "zoltan Mora García"
+test = Postulante(name=name)
+test.save()
+data_pregunta_1 = {"numero_pregunta": 3, "etapa": "1", "puntaje": "4"}
 pregunta_1 = test.question(data_pregunta_1)
+pregunta_1.save()
 print("----->", test)
 print(">>>>>>", pregunta_1)
 
