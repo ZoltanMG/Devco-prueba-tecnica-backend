@@ -10,8 +10,8 @@ class Question(BaseModel, Base):
     postulante_id = Column(String(60), ForeignKey(
         'postulantes.id'), nullable=False)
     etapa = Column(String(2), nullable=True)
-    numero_pregunta = Column(String(3), nullable=True)
-    puntaje = Column(String(3), nullable=True)
+    numero_pregunta = Column(Integer(), nullable=True)
+    puntaje = Column(Integer(), nullable=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

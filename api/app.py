@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from models import postulante
+from werkzeug.wrappers import response
+from models import postulante, question
 from models.postulante import Postulante
 from models import storage
 
@@ -12,9 +13,16 @@ CORS(app)
 
 def json_postulantes(postulantes):
     postulantes_json = []
+    lista_preguntas = []
     for postulante in postulantes:
-        postulantes_json.append(postulante.to_dict())
-    new_dict = {"a": postulantes_json}
+        for question in postulante.questions:
+            lista_preguntas.append(question.to_dict())
+        temporal = postulante.to_dict()
+        if temporal["questions"]:
+            del temporal["questions"]
+        temporal["preguntas"] = sorted(lista_preguntas, key=lambda pregunta : pregunta['numero_pregunta'])
+        postulantes_json.append(temporal)
+    new_dict = {"postulantes": postulantes_json}
     return new_dict
 
 
@@ -38,6 +46,12 @@ def home():
 @app.route("/preguntas", methods=['POST', 'DELETE'], strict_slashes=False)
 def preguntas():
     if request.method == "POST":
+        for pregunta in request.json:
+            postulante = storage.session.query(Postulante).filter_by(id=pregunta["postulante_id"]).first()
+            question = postulante.question(pregunta)
+            question.save()
+            print(question)
+            
         print(request.json)
         return {"estado": "creado"}
     return {"estado": "error"}
