@@ -2,7 +2,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from werkzeug.wrappers import response
-from models import postulante, question
+from models.question import Question
 from models.postulante import Postulante
 from models import storage
 
@@ -48,11 +48,15 @@ def preguntas():
     if request.method == "POST":
         for pregunta in request.json:
             postulante = storage.session.query(Postulante).filter_by(id=pregunta["postulante_id"]).first()
-            question = postulante.question(pregunta)
-            question.save()
+            question = storage.session.query(Question).filter_by(numero_pregunta=pregunta["numero_pregunta"], etapa=pregunta["etapa"]).first()
+            if question:
+                for key,value in pregunta.items():
+                    setattr(question, key, value)
+            else:
+                question = postulante.question(pregunta)
             print(question)
-            
-        print(request.json)
+            question.save()
+
         return {"estado": "creado"}
     return {"estado": "error"}
 
