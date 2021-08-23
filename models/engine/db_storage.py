@@ -13,7 +13,7 @@ class DBStorage:
 
     def __init__(self):
         USER_MYSQL = "devco_dev"
-        PWD_MYSQL = "Devco_pwd"
+        PWD_MYSQL = "Devco_pwd_123*"
         HOST_MYSQL = "localhost"
         DB_MYSQL = "devco_db"
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.

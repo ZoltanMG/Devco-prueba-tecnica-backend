@@ -2,6 +2,6 @@
 
 DROP DATABASE IF EXISTS devco_db;
 CREATE DATABASE IF NOT EXISTS devco_db;
-CREATE USER IF NOT EXISTS 'devco_dev'@'localhost' IDENTIFIED BY 'Devco_pwd';
+CREATE USER IF NOT EXISTS 'devco_dev'@'localhost' IDENTIFIED BY 'Devco_pwd_123*';
 GRANT ALL PRIVILEGES ON `devco_db`.* TO 'devco_dev'@'localhost';
 FLUSH PRIVILEGES;
