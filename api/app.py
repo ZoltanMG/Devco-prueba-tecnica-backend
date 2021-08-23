@@ -12,16 +12,14 @@ CORS(app)
 
 
 def json_postulantes(postulantes):
-    postulantes_json = []
-    lista_preguntas = []
+    postulantes_json = []    
     for postulante in postulantes:
+        diccionario_temp = postulante.to_dict()
+        lista_questios_tmp = []
         for question in postulante.questions:
-            lista_preguntas.append(question.to_dict())
-        temporal = postulante.to_dict()
-        if temporal["questions"]:
-            del temporal["questions"]
-        temporal["preguntas"] = sorted(lista_preguntas, key=lambda pregunta : pregunta['numero_pregunta'])
-        postulantes_json.append(temporal)
+            lista_questios_tmp.append(question.to_dict())
+        diccionario_temp["preguntas"] = lista_questios_tmp
+        postulantes_json.append(diccionario_temp)    
     new_dict = {"postulantes": postulantes_json}
     return new_dict
 
