@@ -12,6 +12,7 @@ class Question(BaseModel, Base):
     etapa = Column(String(2), nullable=True)
     numero_pregunta = Column(Integer(), nullable=True)
     puntaje = Column(Integer(), nullable=True)
+    descripcion = Column(String(600), nullable=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

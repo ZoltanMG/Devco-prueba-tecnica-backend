@@ -12,14 +12,15 @@ CORS(app)
 
 
 def json_postulantes(postulantes):
-    postulantes_json = []    
+    postulantes_json = []
     for postulante in postulantes:
         diccionario_temp = postulante.to_dict()
-        lista_questios_tmp = []
+        lista_questions_tmp = []
         for question in postulante.questions:
-            lista_questios_tmp.append(question.to_dict())
-        diccionario_temp["preguntas"] = lista_questios_tmp
-        postulantes_json.append(diccionario_temp)    
+            lista_questions_tmp.append(question.to_dict())
+        lista_questions = sorted(lista_questions_tmp, key=lambda numero_pregunta : numero_pregunta['numero_pregunta'])
+        diccionario_temp["preguntas"] = lista_questions
+        postulantes_json.append(diccionario_temp)
     new_dict = {"postulantes": postulantes_json}
     return new_dict
 
@@ -46,13 +47,8 @@ def preguntas():
     if request.method == "POST":
         for pregunta in request.json:
             postulante = storage.session.query(Postulante).filter_by(id=pregunta["postulante_id"]).first()
-            question = storage.session.query(Question).filter_by(numero_pregunta=pregunta["numero_pregunta"], etapa=pregunta["etapa"]).first()
-            if question:
-                for key,value in pregunta.items():
-                    setattr(question, key, value)
-            else:
-                question = postulante.question(pregunta)
-            print(question)
+            question = postulante.question(pregunta)
+            print(question.to_dict())
             question.save()
 
         return {"estado": "creado"}
