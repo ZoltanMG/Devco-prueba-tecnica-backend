@@ -130,3 +130,8 @@ dmypy.json
 
 # Cisual Studio Code
 .vscode
+
+# Scripts Portatil
+run_2
+restart_2
+restart_mysql_db_2.sql
