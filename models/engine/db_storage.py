@@ -4,6 +4,7 @@ from models.base_model import Base
 from models.postulante import Postulante
 from models.question import Question
 from sqlalchemy.orm import scoped_session, sessionmaker
+from os import getenv
 
 clases = {"Postulante": Postulante, "Question": Question}
 
@@ -12,10 +13,10 @@ class DBStorage:
     session = None
 
     def __init__(self):
-        USER_MYSQL = "devco_dev"
-        PWD_MYSQL = "Devco_pwd_123*"
-        HOST_MYSQL = "localhost"
-        DB_MYSQL = "devco_db"
+        USER_MYSQL = getenv('USER_MYSQL')
+        PWD_MYSQL = getenv('PWD_MYSQL')
+        HOST_MYSQL = getenv('HOST_MYSQL')
+        DB_MYSQL = getenv('DB_MYSQL')
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(USER_MYSQL,
                                              PWD_MYSQL,
