@@ -18,7 +18,8 @@ def json_postulantes(postulantes):
         lista_questions_tmp = []
         for question in postulante.questions:
             lista_questions_tmp.append(question.to_dict())
-        lista_questions = sorted(lista_questions_tmp, key=lambda numero_pregunta : numero_pregunta['numero_pregunta'])
+        lista_questions = sorted(
+            lista_questions_tmp, key=lambda numero_pregunta: numero_pregunta['numero_pregunta'])
         diccionario_temp["preguntas"] = lista_questions
         postulantes_json.append(diccionario_temp)
     new_dict = {"postulantes": postulantes_json}
@@ -33,6 +34,7 @@ def home():
         return postulantes_json, 200
     return jsonify({"estado": "Error"})
 
+
 @app.route("/postulantes", methods=['POST', 'DELETE'], strict_slashes=False)
 def postulantes():
     if request.method == "POST":
@@ -41,30 +43,31 @@ def postulantes():
         nuevo_postulante.save()
         return jsonify({"estado": "creado"}), 200
     elif request.method == "DELETE":
-        postulante = storage.session.query(Postulante).filter_by(id=request.json).first()
+        postulante = storage.session.query(
+            Postulante).filter_by(id=request.json).first()
         postulante.delete()
         storage.save()
     return jsonify({"estado": "Error"})
+
 
 @app.route("/preguntas", methods=['POST', 'PUT'], strict_slashes=False)
 def preguntas():
     if request.method == "POST":
         for pregunta in request.json:
-            postulante = storage.session.query(Postulante).filter_by(id=pregunta["postulante_id"]).first()
+            postulante = storage.session.query(Postulante).filter_by(
+                id=pregunta["postulante_id"]).first()
             question = postulante.question(pregunta)
             question.save()
         return {"estado": "creado"}
     if request.method == "PUT":
         for pregunta in request.json:
-            question = storage.session.query(Question).filter_by(id=pregunta["id"]).first()
-            for key,value in pregunta.items():
-                setattr(question,key, value)
+            question = storage.session.query(
+                Question).filter_by(id=pregunta["id"]).first()
+            for key, value in pregunta.items():
+                setattr(question, key, value)
             question.save()
-
         return {"estado": "atualizado"}
-
     return {"estado": "error"}
-
 
 
 @app.after_request
