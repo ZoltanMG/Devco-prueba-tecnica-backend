@@ -46,16 +46,23 @@ def postulantes():
         storage.save()
     return jsonify({"estado": "Error"})
 
-@app.route("/preguntas", methods=['POST', 'DELETE'], strict_slashes=False)
+@app.route("/preguntas", methods=['POST', 'PUT'], strict_slashes=False)
 def preguntas():
     if request.method == "POST":
         for pregunta in request.json:
             postulante = storage.session.query(Postulante).filter_by(id=pregunta["postulante_id"]).first()
             question = postulante.question(pregunta)
-            print(question.to_dict())
+            question.save()
+        return {"estado": "creado"}
+    if request.method == "PUT":
+        for pregunta in request.json:
+            question = storage.session.query(Question).filter_by(id=pregunta["id"]).first()
+            for key,value in pregunta.items():
+                setattr(question,key, value)
             question.save()
 
-        return {"estado": "creado"}
+        return {"estado": "atualizado"}
+
     return {"estado": "error"}
 
 
