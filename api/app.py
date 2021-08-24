@@ -25,13 +25,17 @@ def json_postulantes(postulantes):
     return new_dict
 
 
-@app.route("/", methods=['GET', 'POST', 'DELETE'], strict_slashes=False)
+@app.route("/", methods=['GET'], strict_slashes=False)
 def home():
     if request.method == "GET":
         postulantes = storage.session.query(Postulante).all()
         postulantes_json = json_postulantes(postulantes)
         return postulantes_json, 200
-    elif request.method == "POST":
+    return jsonify({"estado": "Error"})
+
+@app.route("/postulantes", methods=['POST', 'DELETE'], strict_slashes=False)
+def postulantes():
+    if request.method == "POST":
         name = request.json["nombre"]
         nuevo_postulante = Postulante(name=name)
         nuevo_postulante.save()
