@@ -5,7 +5,7 @@
   <summary>Tabla de contenido</summary>
   <ol>
     <li>
-      <a href="#projecto">Projecto</a>
+      <a href="#projecto-devco">Projecto Devco</a>
     </li>
     <li>
       <a href="#tecnologias">Tecnologías</a>
@@ -17,11 +17,11 @@
   </ol>
 </details>
 
-## Projecto
+## Projecto Devco
 
-#################################################
+<img src="./imagenes/Capture.PNG" alt="SISTEMA DE PUNTUACIÓN DE POSTULANTES"/>
 
-- Este proyecto es la realización de la prueba técnica de Devco que consiste en calcular el puntaje promedio de cada candidato con el fin de determinar si es apto para ingresar como un nuevo empleado. La puntuación de cada uno se calcula con base en el número de respuestas correctas e incorrectas a una prueba. Se define que la puntuación a una respuesta incorrecta es de -1 y el de las correctas es 4. La cantidad de preguntas para la etapa inicial es de 8 preguntas, pero el gerente técnico piensa que podrían ser más o menos preguntas en la segunda etapa, dependiendo del resultado de la evaluación de la primera etapa de postulantes.
+Este proyecto es la realización de la prueba técnica de <a href="https://www.devco.com.co/">Devco</a> que consiste en calcular el puntaje promedio de cada candidato con el fin de determinar si es apto para ingresar como un nuevo empleado. La puntuación de cada uno se calcula con base en el número de respuestas correctas e incorrectas a una prueba. Se define que la puntuación a una respuesta incorrecta es de -1 y el de las correctas es 4. La cantidad de preguntas para la etapa inicial es de 8 preguntas, pero el gerente técnico piensa que podrían ser más o menos preguntas en la segunda etapa, dependiendo del resultado de la evaluación de la primera etapa de postulantes.
 
 ## Tecnologias
 
@@ -30,8 +30,12 @@
 - [Mysql](https://www.mysql.com/)
 
 ## Diagramas
+* Arquitectura
 
-####################################################
+    <img src="./imagenes/diagrama_arquitectura_Mesa de trabajo 1.png" alt="diagrama de arquitectura"/>
+* Base de datos
+
+    <img src="./imagenes/diagrama_db-02.png" alt="diagrama de base de datos"/>
 
 ## Iniciar appWeb en Back End
 
