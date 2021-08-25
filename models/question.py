@@ -4,8 +4,11 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer
 from sqlalchemy import ForeignKey
 
-class Question(BaseModel, Base):
 
+class Question(BaseModel, Base):
+    """
+    esta clase almacenará los datos de las preguntas.
+    """
     __tablename__ = "questions"
     postulante_id = Column(String(60), ForeignKey(
         'postulantes.id'), nullable=False)

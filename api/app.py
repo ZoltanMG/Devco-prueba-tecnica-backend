@@ -5,13 +5,23 @@ from werkzeug.wrappers import response
 from models.question import Question
 from models.postulante import Postulante
 from models import storage
+"""
+Aquí se gestionan las peticiones http.
+"""
 
 
+# app es la instancia de Flask
 app = Flask(__name__)
+
+# llamada de la libreria Cors
 CORS(app)
 
 
 def json_postulantes(postulantes):
+    """
+    Esta función construye un diccionario con los 
+    postulantesy sus respectivos datos de preguntas.
+    """
     postulantes_json = []
     for postulante in postulantes:
         diccionario_temp = postulante.to_dict()
@@ -25,9 +35,15 @@ def json_postulantes(postulantes):
     new_dict = {"postulantes": postulantes_json}
     return new_dict
 
+# Endpoints
+
 
 @app.route("/", methods=['GET'], strict_slashes=False)
 def home():
+    """
+    Este endpoint es la raíz de la app donde se envía un
+    Json con toda la información almacenada.
+    """
     if request.method == "GET":
         postulantes = storage.session.query(Postulante).all()
         postulantes_json = json_postulantes(postulantes)
@@ -37,6 +53,9 @@ def home():
 
 @app.route("/postulantes", methods=['POST', 'DELETE'], strict_slashes=False)
 def postulantes():
+    """
+    En este endpoint se realiza la creación y eliminación de los postulantes.
+    """
     if request.method == "POST":
         name = request.json["nombre"]
         nuevo_postulante = Postulante(name=name)
@@ -52,6 +71,9 @@ def postulantes():
 
 @app.route("/preguntas", methods=['POST', 'PUT'], strict_slashes=False)
 def preguntas():
+    """
+    En este endpoint se realiza la creación y actualizacion de las preguntas.
+    """
     if request.method == "POST":
         for pregunta in request.json:
             postulante = storage.session.query(Postulante).filter_by(
@@ -72,9 +94,11 @@ def preguntas():
 
 @app.after_request
 def after(response):
-    # This function verifies the session after a request
-    # and gives the CORS with the frontend
-    # allows the conncetion between the back and the front
+    """
+    Esta función verifica la sesión después de una solicitud y
+    le da al CORS con la interfaz que permite la conexión
+    entre la parte posterior y la frontal.
+    """
     response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
     response.headers["Access-Control-Allow-Credentials"] = "true"
     response.headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS, PUT, DELETE"

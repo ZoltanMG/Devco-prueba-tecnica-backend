@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-#from models.base_model import BaseModel
 from models.postulante import Postulante
+"""
+Aquí se crean postulantes y respuestas de preguntas para testeo
+"""
 
 name = "Zoltán Mora García"
 postulante_zoltan = Postulante(name=name)
